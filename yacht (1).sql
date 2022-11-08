@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 08 nov 2022 om 10:14
+-- Gegenereerd op: 08 nov 2022 om 11:08
 -- Serverversie: 10.4.21-MariaDB
 -- PHP-versie: 8.0.10
 
@@ -42,6 +42,13 @@ CREATE TABLE `kilometers` (
   `id` int(11) NOT NULL,
   `totaal` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `kilometers`
+--
+
+INSERT INTO `kilometers` (`id`, `totaal`) VALUES
+(4, 1);
 
 -- --------------------------------------------------------
 
@@ -91,7 +98,10 @@ ALTER TABLE `kilometers`
 -- Indexen voor tabel `main`
 --
 ALTER TABLE `main`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `kilometers_id` (`kilometers_id`),
+  ADD KEY `energie_id` (`energie_id`);
 
 --
 -- Indexen voor tabel `user`
@@ -113,7 +123,7 @@ ALTER TABLE `energie`
 -- AUTO_INCREMENT voor een tabel `kilometers`
 --
 ALTER TABLE `kilometers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT voor een tabel `main`
@@ -126,6 +136,23 @@ ALTER TABLE `main`
 --
 ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Beperkingen voor geëxporteerde tabellen
+--
+
+--
+-- Beperkingen voor tabel `main`
+--
+ALTER TABLE `main`
+  ADD CONSTRAINT `main_ibfk_1` FOREIGN KEY (`energie_id`) REFERENCES `energie` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `main_ibfk_2` FOREIGN KEY (`kilometers_id`) REFERENCES `kilometers` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Beperkingen voor tabel `user`
+--
+ALTER TABLE `user`
+  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id`) REFERENCES `main` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
