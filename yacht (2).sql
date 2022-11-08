@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 08 nov 2022 om 11:08
+-- Gegenereerd op: 08 nov 2022 om 13:56
 -- Serverversie: 10.4.21-MariaDB
 -- PHP-versie: 8.0.10
 
@@ -20,6 +20,17 @@ SET time_zone = "+00:00";
 --
 -- Database: `yacht`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `boot`
+--
+
+CREATE TABLE `boot` (
+  `id` int(11) NOT NULL,
+  `naam` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -83,6 +94,12 @@ CREATE TABLE `user` (
 --
 
 --
+-- Indexen voor tabel `boot`
+--
+ALTER TABLE `boot`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexen voor tabel `energie`
 --
 ALTER TABLE `energie`
@@ -107,11 +124,18 @@ ALTER TABLE `main`
 -- Indexen voor tabel `user`
 --
 ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `boot_id` (`boot_id`);
 
 --
 -- AUTO_INCREMENT voor geëxporteerde tabellen
 --
+
+--
+-- AUTO_INCREMENT voor een tabel `boot`
+--
+ALTER TABLE `boot`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT voor een tabel `energie`
@@ -146,13 +170,14 @@ ALTER TABLE `user`
 --
 ALTER TABLE `main`
   ADD CONSTRAINT `main_ibfk_1` FOREIGN KEY (`energie_id`) REFERENCES `energie` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `main_ibfk_2` FOREIGN KEY (`kilometers_id`) REFERENCES `kilometers` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `main_ibfk_2` FOREIGN KEY (`kilometers_id`) REFERENCES `kilometers` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `main_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Beperkingen voor tabel `user`
 --
 ALTER TABLE `user`
-  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`id`) REFERENCES `main` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`boot_id`) REFERENCES `boot` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
