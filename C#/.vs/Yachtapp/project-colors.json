@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "489096e9-e1bc-4e2c-ac40-349ef453484b": {
+      "ProjectGuid": "489096e9-e1bc-4e2c-ac40-349ef453484b",
+      "DisplayName": "Yachtapp",
+      "ColorIndex": 0
+    },
+    "0c88a78d-2735-41bc-90a0-728d3f6aae6e": {
+      "ProjectGuid": "0c88a78d-2735-41bc-90a0-728d3f6aae6e",
+      "DisplayName": "Yachtapp.Android",
+      "ColorIndex": 1
+    }
+  },
+  "NextColorIndex": 2
+}
